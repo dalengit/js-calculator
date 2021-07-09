@@ -1,21 +1,31 @@
-// Calculator class defines methods it can take 
+// Calculator object defines methods it can take 
 class Calculator {
-    constructor(previousOperand, currentOperand) {
-        this.previousOperand = previousOperand;
-        this.currentOperand = currentOperand;
+    constructor(previousOperandElement, currentOperandElement) {
+        this.previousOperandElement = previousOperandElement;
+        this.currentOperandElement= currentOperandElement;
+        this.clear();
     }
 
-    clear() {}
+    clear() {
+        this.currentOperand = '';
+        this.previousOperand = '';
+        this.operation = undefined;
+    }
 
     delete() {}
 
-    appendNumber(number) {}
+    appendNumber(number) {
+        this.currentOperand = number;
+    }
 
-    chooseOpertation(operation) {}
+    chooseOperation(operation) {}
 
     compute() {}
 
-    updateDisplay() {}
+    updateDisplay() {
+        console.log(this.currentOperand);
+        this.currentOperandElement.innerText = this.currentOperand;
+    }
 
 }
 
@@ -25,5 +35,16 @@ const operationButton = document.querySelectorAll('[data-operation]');
 const equalsButton = document.querySelector('[data-equals]');
 const allClearButton = document.querySelector('[data-all-clear]');
 const deleteButton = document.querySelector('[data-delete]');
-const previousOperand = document.querySelector('[data-previos-operand]');
-const currentOperand = document.querySelector('[data-current-operand]');
+const previousOperandElement = document.querySelector('[data-previous-operand]');
+const currentOperandElement = document.querySelector('[data-current-operand]');
+
+// New instance of calc
+const calculator = new Calculator(previousOperandElement, currentOperandElement);
+
+// Add event listener and input recognition 
+numberButton.forEach(button => {
+    button.addEventListener('click', () => {
+        calculator.appendNumber(button.innerText);
+        calculator.updateDisplay();
+    })
+})
