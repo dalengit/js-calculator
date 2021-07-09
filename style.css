@@ -23,6 +23,7 @@ body {
     cursor: pointer;
     font-size: 2rem;
     border: 1px solid white;
+    color: rgb(30, 30, 30);
     background-color: rgba(255, 255, 255, .75);
 }
 
@@ -38,4 +39,21 @@ body {
     grid-column: 1 / -1;
     background-color: rgba(255, 255, 255, .9);
     border-radius: 5px 5px 0 0;
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-around;
+    flex-direction: column;
+    padding: 10px;
+    word-wrap: break-word;
+    word-break: break-all;
+}
+
+.output .previous-operand {
+    color: rgb(60, 60, 60);
+    font-size: 1.5rem;
+}
+
+.output .current-operand {
+    color: rgb(34, 34, 34); 
+    font-size: 2.5rem;
 }
