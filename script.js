@@ -1,4 +1,4 @@
-// Calculator object defines methods it can take 
+ // Calculator object defines methods it can take 
 class Calculator {
     constructor(previousOperandElement, currentOperandElement) {
         this.previousOperandElement = previousOperandElement;
@@ -14,17 +14,29 @@ class Calculator {
 
     delete() {}
 
-    appendNumber(number) {
+    appendNumber(number) {  
+        if (number === '.' && this.currentOperand.includes('.')) return;
+        // Number with multiple digits can be added 
         this.currentOperand = this.currentOperand.toString() + number.toString();
     }
 
-    chooseOperation(operation) {}
+    chooseOperation(operation) {
+        if (this.currentOperand === '') return; 
+        if (this.previousOperand === '') {
+            this.compute();
+        }
+        // Declaration of operation -> makes current operand into previous operand -> current operand = null
+        this.operation = operation;
+        this.previousOperand = this.currentOperand;
+        this.currentOperand = '';
+    }
 
     compute() {}
 
     updateDisplay() {
         console.log(this.currentOperand);
         this.currentOperandElement.innerText = this.currentOperand;
+        this.previousOperandElement.innerText = this.previousOperand; 
     }
 
 }
@@ -45,6 +57,13 @@ const calculator = new Calculator(previousOperandElement, currentOperandElement)
 numberButton.forEach(button => {
     button.addEventListener('click', () => {
         calculator.appendNumber(button.innerText);
+        calculator.updateDisplay();
+    })
+})
+
+operationButton.forEach(button => {
+    button.addEventListener('click', () => {
+        calculator.chooseOperation(button.innerText);
         calculator.updateDisplay();
     })
 })
