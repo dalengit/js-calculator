@@ -22,7 +22,7 @@ class Calculator {
 
     chooseOperation(operation) {
         if (this.currentOperand === '') return; 
-        if (this.previousOperand === '') {
+        if (this.previousOperand !== '') {
             this.compute();
         }
         // Declaration of operation -> makes current operand into previous operand -> current operand = null
@@ -31,7 +31,31 @@ class Calculator {
         this.currentOperand = '';
     }
 
-    compute() {}
+    compute() {
+        let computation;
+        const previousVar = parseFloat(this.previousOperand);
+        const currentVar = parseFloat(this.currentOperand);
+        if (isNaN(previousVar) || isNaN(currentVar)) return; 
+        switch (this.operation) {
+            case '+': 
+                computation = previousVar + currentVar
+                break
+            case '-': 
+                computation = previousVar - currentVar
+                break
+            case '*': 
+                computation = previousVar * currentVar
+                break
+            case '÷': 
+                computation = previousVar / currentVar
+                break
+            default: 
+                return;
+        }
+        this.currentOperand = computation;
+        this.operation = undefined;
+        this.previousOperand = '';
+    }
 
     updateDisplay() {
         console.log(this.currentOperand);
@@ -66,4 +90,14 @@ operationButton.forEach(button => {
         calculator.chooseOperation(button.innerText);
         calculator.updateDisplay();
     })
+})
+
+equalsButton.addEventListener('click', button => {
+    calculator.compute();
+    calculator.updateDisplay();
+})
+
+allClearButton.addEventListener('click', button => {
+    calculator.clear();
+    calculator.updateDisplay();
 })
