@@ -15,7 +15,7 @@ class Calculator {
     delete() {}
 
     appendNumber(number) {
-        this.currentOperand = number;
+        this.currentOperand = this.currentOperand.toString() + number.toString();
     }
 
     chooseOperation(operation) {}
@@ -41,7 +41,7 @@ const currentOperandElement = document.querySelector('[data-current-operand]');
 // New instance of calc
 const calculator = new Calculator(previousOperandElement, currentOperandElement);
 
-// Add event listener and input recognition 
+// Add event listener loop and input recognition - add number to the display
 numberButton.forEach(button => {
     button.addEventListener('click', () => {
         calculator.appendNumber(button.innerText);
