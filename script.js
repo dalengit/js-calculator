@@ -12,7 +12,10 @@ class Calculator {
         this.operation = undefined;
     }
 
-    delete() {}
+    delete() {
+        // Deletes a single character of the current number 
+        this.currentOperand = this.currentOperand.toString().slice(0, -1);
+    }
 
     appendNumber(number) {  
         if (number === '.' && this.currentOperand.includes('.')) return;
@@ -58,9 +61,13 @@ class Calculator {
     }
 
     updateDisplay() {
-        console.log(this.currentOperand);
         this.currentOperandElement.innerText = this.currentOperand;
-        this.previousOperandElement.innerText = this.previousOperand; 
+        if (this.operation != null) {
+            // Concatenates the entered number alongside operation 
+            this.previousOperandElement.innerText = this.previousOperand =
+                `${this.previousOperand} ${this.operation}`;
+        }
+
     }
 
 }
@@ -99,5 +106,10 @@ equalsButton.addEventListener('click', button => {
 
 allClearButton.addEventListener('click', button => {
     calculator.clear();
+    calculator.updateDisplay();
+})
+
+deleteButton.addEventListener('click', button => {
+    calculator.delete();
     calculator.updateDisplay();
 })
