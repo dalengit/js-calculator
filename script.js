@@ -85,10 +85,11 @@ class Calculator {
             // Concatenates the entered number alongside operation 
             this.previousOperandElement.innerText = 
                 `${this.getDisplayNumber(this.previousOperand)} ${this.operation}`;
+        } else {
+            // Clears the previous input
+            this.previousOperandElement.innerText = '';        
         }
-
     }
-
 }
 
 // Selectors
