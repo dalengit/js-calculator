@@ -60,12 +60,31 @@ class Calculator {
         this.previousOperand = '';
     }
 
+    getDisplayNumber(number) {
+        const stringNumber = number.toString();
+        const integerDigits = parseFloat(stringNumber.split('.')[0]);
+        const decimalDigits = stringNumber.split('.')[1];
+
+        let integerDisplay;
+        if (isNaN(integerDigits)) {
+            integerDisplay = '';
+        } else {
+            integerDisplay = integerDigits.toLocaleString('en', { maximumFractionDigits: 0 })
+        };
+
+        if (decimalDigits != null) {
+            return `${integerDisplay}.${decimalDigits}`
+        } else {
+            return integerDisplay;
+        };
+    }
+
     updateDisplay() {
-        this.currentOperandElement.innerText = this.currentOperand;
+        this.currentOperandElement.innerText = this.getDisplayNumber(this.currentOperand);
         if (this.operation != null) {
             // Concatenates the entered number alongside operation 
-            this.previousOperandElement.innerText = this.previousOperand =
-                `${this.previousOperand} ${this.operation}`;
+            this.previousOperandElement.innerText = 
+                `${this.getDisplayNumber(this.previousOperand)} ${this.operation}`;
         }
 
     }
